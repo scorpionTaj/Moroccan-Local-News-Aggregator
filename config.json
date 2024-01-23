@@ -1,0 +1,53 @@
+{
+  "hespress": {
+    "languages": {
+      "en": {
+        "politics": "https://en.hespress.com/politics",
+        "economy": "https://en.hespress.com/economy",
+        "society": "https://en.hespress.com/society",
+        "culture": "https://en.hespress.com/culture",
+        "sports": "https://en.hespress.com/sports",
+        "mena": "https://en.hespress.com/mena",
+        "international": "https://en.hespress.com/international"
+      },
+      "ar": {
+        "Politique": "https://www.hespress.com/politique",
+        "Economie": "https://www.hespress.com/economie",
+        "Tamazight": "https://www.hespress.com/tamazight",
+        "Sport": "https://www.hespress.com/sport",
+        "Sociètè": "https://www.hespress.com/societe",
+        "Culture": "https://www.hespress.com/art-et-culture",
+        "Mèdias": "https://www.hespress.com/medias",
+        "faits-divers": "https://www.hespress.com/faits-divers",
+        "Automoto": "https://www.hespress.com/automoto",
+        "Regions": "https://www.hespress.com/regions"
+      },
+      "fr": {
+        "Politique": "https://fr.hespress.com/politique",
+        "Economie": "https://fr.hespress.com/economie",
+        "Monde": "https://fr.hespress.com/monde",
+        "Sport": "https://fr.hespress.com/sport",
+        "Sociètè": "https://fr.hespress.com/societe",
+        "Culture": "https://fr.hespress.com/culture",
+        "Mèdias": "https://fr.hespress.com/media",
+        "High-tech": "https://fr.hespress.com/high-tech",
+        "Opinions": "https://fr.hespress.com/opinions",
+        "Regions": "https://fr.hespress.com/regions"
+      }
+    },
+    "module": "hespress"
+  },
+  "akhbarona": {
+    "languages": {
+      "ar": {}
+    },
+    "module": "akhbarona"
+  },
+  "le360": {
+    "languages": {
+      "ar": {},
+      "fr": {}
+    },
+    "module": "le360"
+  }
+}
