@@ -1,20 +1,15 @@
+from dotenv import load_dotenv
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 from oauth2client.client import OAuth2Credentials
 import os
-import json
 
-def load_credentials(credential_file):
-    with open(credential_file, 'r') as file:
-        credentials = json.load(file)
-    return credentials['web']
+load_dotenv()
 
-credentials = load_credentials('client_secrets.json')
-
-CLIENT_ID = credentials['client_id']
-CLIENT_SECRET = credentials['client_secret']
-REDIRECT_URI = credentials['redirect_uris'][0]  # Access the first URI
-REFRESH_TOKEN = credentials['refresh_token']
+CLIENT_ID = os.getenv('CLIENT_ID')
+CLIENT_SECRET = os.getenv('CLIENT_SECRET')
+REFRESH_TOKEN = os.getenv('REFRESH_TOKEN')
+REDIRECT_URI = os.getenv('REDIRECT_URIS').split(',')[0]  # Access the first URI
 
 def authenticate_google_drive():
     gauth = GoogleAuth()
@@ -36,6 +31,16 @@ def upload_file_to_drive(drive, file_path, folder_id=None):
             file_metadata['parents'] = [{'id': folder_id}]
 
         upload_file = drive.CreateFile(file_metadata)
+
+        # Check if the file already exists on Google Drive
+        existing_files = drive.ListFile({'q': f"title='{upload_file['title']}'"}).GetList()
+        if existing_files:
+            # File with the same name already exists, update the existing file
+            upload_file = existing_files[0]
+            print(f"File already exists on Drive. Updating file with ID: {upload_file['id']}")
+        else:
+            print("Uploading a new file to Drive.")
+
         upload_file.SetContentFile(file_path)
         upload_file.Upload()
         print(f"File uploaded successfully. File ID: {upload_file['id']}")

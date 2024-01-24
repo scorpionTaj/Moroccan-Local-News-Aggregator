@@ -5,6 +5,8 @@ import pandas as pd
 import json
 import importlib
 import google_drive_handle as gdrive
+from dotenv import load_dotenv
+import os
 
 # Load config.json
 with open('config.json') as f:
@@ -12,8 +14,21 @@ with open('config.json') as f:
 
 drive = gdrive.authenticate_google_drive()
 processed_files = set()
+st.markdown(
+    """
+    <style>
+        .centered {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
-st.title('Moroccan News Aggregator')
+st.markdown("<h1 class='centered'>Moroccan News Aggregator</h1>", unsafe_allow_html=True)
 
 selected_websites = {}
 selected_categories = {}
@@ -76,7 +91,7 @@ if st.button('Start Scraping'):
                     if file_id:
                         download_link = gdrive.get_drive_download_link(drive, file_id)
                         if download_link:
-                            st.markdown(f"[Download {website} - {category} data]({download_link})", unsafe_allow_html=True)
+                            #st.markdown(f"[Download {website} - {category} data]({download_link})", unsafe_allow_html=True)
 
                             df = pd.read_csv(file_path)
                             st.write(f"{website} - {category} Data:")
