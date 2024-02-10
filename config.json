@@ -39,8 +39,17 @@
   },
   "akhbarona": {
     "languages": {
-      "ar": {},
-      "fr": {}
+      "ar": {
+        "economy": " https://www.akhbarona.com/economy",
+        "politic": "https://www.akhbarona.com/politic",
+        "national": "https://www.akhbarona.com/national",
+        "world": "https://www.akhbarona.com/world",
+        "health": "https://www.akhbarona.com/health",
+        "technology": "https://www.akhbarona.com/technology",
+        "culture": "https://www.akhbarona.com/culture",
+        "religion": "https://www.akhbarona.com/religion",
+        "last": "https://www.akhbarona.com/last"
+      }
     },
     "module": "akhbarona"
   },
