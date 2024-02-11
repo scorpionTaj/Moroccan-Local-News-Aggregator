@@ -54,9 +54,37 @@
     },
     "module": "akhbarona"
   },
-  "le360": {
+  "liberation": {
     "languages": {
       "ar": {},
+      "fr": {
+        "Actualites": "https://www.libe.ma/Actualite_r5.html",
+        "Economie": "https://www.libe.ma/Economie_r10.html",
+        "Societe": "https://www.libe.ma/Societe_r7.html",
+        "culture": "https://www.libe.ma/Culture_r8.html",
+        "Sport": "https://www.libe.ma/Sport_r6.html",
+        "international": "https://www.libe.ma/Monde_r17.html",
+        "Entretien": "https://www.libe.ma/Entretien_r14.html",
+        "L'info": "https://www.libe.ma/L-info_r25.html",
+        "Portrait": "https://www.libe.ma/Portrait_r41.html",
+        "Horizon": "https://www.libe.ma/Horizons_r13.html",
+        "People": "https://www.libe.ma/People_r27.html"
+      }
+    },
+    "module": "liberation"
+  },
+  "al9anat": {
+    "languages": {
+      "ar": {
+        "society": "https://www.al9anat.com/%d9%85%d8%ac%d8%aa%d9%85%d8%b9-2/",
+        "politic": "https://www.al9anat.com/%d8%b3%d9%8a%d8%a7%d8%b3%d8%a9/",
+        "economy": "https://www.al9anat.com/%d8%a5%d9%82%d8%aa%d8%b5%d8%a7%d8%af/",
+        "sport": "https://www.al9anat.com/%d8%b1%d9%8a%d8%a7%d8%b6%d8%a9/",
+        "art": "https://www.al9anat.com/%d8%a3%d8%af%d8%a8-%d9%88-%d9%81%d9%86%d9%88%d9%86/",
+        "international": "https://www.al9anat.com/%d8%af%d9%88%d9%84%d9%8a/",
+        "interviews": "https://www.al9anat.com/%d8%ad%d9%88%d8%a7%d8%b1%d8%a7%d8%aa/",
+        "Maroc_outWorld": "https://www.al9anat.com/%d9%85%d8%ba%d8%a7%d8%b1%d8%a8%d8%a9-%d8%a7%d9%84%d8%b9%d8%a7%d9%84%d9%85/"
+      },
       "fr": {}
     },
     "module": "al9anat"

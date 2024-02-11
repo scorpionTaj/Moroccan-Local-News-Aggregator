@@ -7,8 +7,6 @@ import importlib
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 import google_drive_handle as gdrive
-from dotenv import load_dotenv
-import os
 
 # Load config.json
 with open('config.json') as f:
