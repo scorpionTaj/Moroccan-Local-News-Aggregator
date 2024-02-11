@@ -15,7 +15,7 @@ The Moroccan News Aggregator is a simple web scraping project designed to extrac
 1. **Clone the Repository:**
 
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/scorpionTaj/news-scraper
     ```
 
 2. **Install Dependencies In Terminal Using PIP:**
