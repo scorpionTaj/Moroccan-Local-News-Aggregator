@@ -59,5 +59,18 @@
       "fr": {}
     },
     "module": "le360"
+  },
+  "al9anat": {
+    "languages": {
+      "ar": {
+        "sports": "https://www.al9anat.com/%d8%b1%d9%8a%d8%a7%d8%b6%d8%a9/",
+        "culture" : "https://www.al9anat.com/%d8%a3%d8%af%d8%a8-%d9%88-%d9%81%d9%86%d9%88%d9%86/",
+        "society" : "https://www.al9anat.com/%d9%85%d8%ac%d8%aa%d9%85%d8%b9-2/",
+        "international" : "https://www.al9anat.com/%d8%af%d9%88%d9%84%d9%8a/",
+        "economy" : "https://www.al9anat.com/%d8%a5%d9%82%d8%aa%d8%b5%d8%a7%d8%af/",
+        "interviews" : "https://www.al9anat.com/%d8%ad%d9%88%d8%a7%d8%b1%d8%a7%d8%aa/",
+        "politics" : "https://www.al9anat.com/%d8%b3%d9%8a%d8%a7%d8%b3%d8%a9/"
+      }
+    }
   }
 }
