@@ -4,13 +4,25 @@ import streamlit as st
 import pandas as pd
 import json
 import importlib
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options as ChromeOptions
 import google_drive_handle as gdrive
-from dotenv import load_dotenv
-import os
 
 # Load config.json
 with open('config.json') as f:
     config = json.load(f)
+
+# Set up Chrome WebDriver with options
+options = ChromeOptions()
+options.add_argument('--headless')
+options.add_argument('--no-sandbox')
+options.add_argument('--disable-dev-shm-usage')
+options.add_argument('log-level=3')
+
+
+# Initialize the Chrome WebDriver
+wd = webdriver.Chrome(options=options)
+
 
 drive = gdrive.authenticate_google_drive()
 processed_files = set()
@@ -46,6 +58,8 @@ def load_file_id_mapping():
 
 file_id_mapping = load_file_id_mapping()
 
+selected_websites = {}
+
 for website, details in config.items():
     if st.checkbox(website, key=website):
         # Language selection
@@ -75,9 +89,9 @@ if st.button('Start Scraping'):
             scraper_module = importlib.import_module(module_name)
             for category in selected_categories.get(website, []):
                 category_url = config[website]['languages'][language][category]
-               
-                file_path = scraper_module.scrape_category(category_url, num_articles)
-
+                if 'category_name' in config[website]:
+                    category_name = config[website]['category_name'].get(category, 'default_category_name')
+                file_path = scraper_module.scrape_category(category_url, wd, num_articles)
                 if file_path:
                     if file_path not in file_id_mapping:
                         file_id = gdrive.upload_file_to_drive(drive, file_path)
@@ -87,12 +101,10 @@ if st.button('Start Scraping'):
                     else:
                         file_id = file_id_mapping[file_path]
                         print(f"File already uploaded. Using existing File ID: {file_id}")
-            
                     if file_id:
                         download_link = gdrive.get_drive_download_link(drive, file_id)
                         if download_link:
                             #st.markdown(f"[Download {website} - {category} data]({download_link})", unsafe_allow_html=True)
-
                             df = pd.read_csv(file_path)
                             st.write(f"{website} - {category} Data:")
                             st.dataframe(df)

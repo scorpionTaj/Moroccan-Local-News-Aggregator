@@ -26,6 +26,11 @@ options = ChromeOptions()
 options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
+<<<<<<< HEAD
+=======
+options.add_argument('log-level=3')
+
+>>>>>>> 4353443 (Last Update)
 
 # Initialize the Chrome WebDriver
 wd = webdriver.Chrome(options=options)
@@ -155,11 +160,19 @@ def scrape_category(category_url, category_name, wd,num_articles):
     print(f"Total articles scraped for {category_name}: {len(articles_data)}")
 
     # Check if the file exists before uploading
+<<<<<<< HEAD
     
     if os.path.exists(csv_file_path):
         print(f"File successfully created at {csv_file_path}")
         return csv_file_path
         
+=======
+
+    if os.path.exists(csv_file_path):
+        print(f"File successfully created at {csv_file_path}")
+        return csv_file_path
+
+>>>>>>> 4353443 (Last Update)
     else:
         print(f"Failed to create file for {category_url}")
         return None

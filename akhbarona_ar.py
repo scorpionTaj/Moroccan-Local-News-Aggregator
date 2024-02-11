@@ -27,11 +27,11 @@ def scrape_article(article_url):
 def scrape_category(category_url, num_articles):
     articles_scraped = 0
     all_articles = []
-    page_num = 1  
+    page_num = 1
 
     # Extract site and category from the URL
     site_name = category_url.split('/')[2]  # This gets 'www.akhbarona.com' from the URL
-    site_name = site_name.replace('www.', '') 
+    site_name = site_name.replace('www.', '')
     category_name = category_url.split('/')[-1]  # This gets the category name from the URL
 
     while articles_scraped < num_articles:
@@ -40,7 +40,7 @@ def scrape_category(category_url, num_articles):
         response = requests.get(paginated_url, headers=headers)
         soup = BeautifulSoup(response.content, 'html.parser')
 
-        article_links = soup.find_all('h2', class_='article_title')  
+        article_links = soup.find_all('h2', class_='article_title')
         for article_link in article_links:
             a_tag = article_link.find('a')
             if a_tag and 'href' in a_tag.attrs:

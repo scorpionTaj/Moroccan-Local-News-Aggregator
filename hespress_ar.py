@@ -1,5 +1,4 @@
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -21,6 +20,7 @@ options = ChromeOptions()
 options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
+options.add_argument('log-level=3')
 
 # Initialize the Chrome WebDriver
 wd = webdriver.Chrome(options=options)
@@ -141,11 +141,11 @@ def scrape_category(category_url, num_articles):
             return None  # Return None to indicate failure
 
     # Check if the file exists before uploading
-    
+
     if os.path.exists(csv_file_path):
         print(f"File successfully created at {csv_file_path}")
         return csv_file_path
-        
+
     else:
         print(f"Failed to create file for {category_url}")
         return None
