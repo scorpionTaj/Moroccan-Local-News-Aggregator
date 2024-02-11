@@ -18,10 +18,10 @@ The Moroccan News Aggregator is a simple web scraping project designed to extrac
     git clone <repository-url>
     ```
 
-2. **Install Dependencies:**
+2. **Install Dependencies In Terminal Using PIP:**
 
     ```bash
-    pip install -r requirements.txt
+    pip install streamlit pandas selenium google_drive_handle python-dotenv
     ```
 
 3. **Run the App:**
