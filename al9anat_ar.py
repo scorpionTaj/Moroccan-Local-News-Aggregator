@@ -26,11 +26,8 @@ options = ChromeOptions()
 options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
-<<<<<<< HEAD
-=======
 options.add_argument('log-level=3')
 
->>>>>>> 4353443 (Last Update)
 
 # Initialize the Chrome WebDriver
 wd = webdriver.Chrome(options=options)
@@ -113,26 +110,35 @@ def scrape_article_details(article_url, wd):
         return "", "", None, "", ""
 
 
-def scrape_category(category_url, category_name, wd,num_articles):
+def scrape_category(category_url,num_articles):
+    # Set up Chrome WebDriver with options
+    options = ChromeOptions()
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('log-level=3')
+
+    # Initialize the Chrome WebDriver
+    wd = webdriver.Chrome(options=options)
     print("Attempting to scrape:", category_url)
     articles_data = []
     articles_count = 0
     wd.get(category_url)
 
-    scroll_page(num_articles)
+    # Adjusted to use num_articles for scrolling and loading articles
+    scroll_page(wd, max_scrolls=int(num_articles/6), articles_per_load=6)
 
     soup = BeautifulSoup(wd.page_source, 'html.parser')
     articles = soup.find_all('article', class_='l-post grid-base-post grid-post')
 
-    for article in articles:
+    for article in articles[:num_articles]:  # Limit to num_articles
         link_tag = article.find('a', class_='image-link media-ratio ratio-16-9')
         link = link_tag['href'] if link_tag else ""
-        if link :
+        if link:
             wd.get(link)
             article_data = scrape_article_details(link, wd)
             if article_data[0]:  # Check if content is non-empty
                 articles_data.append({
-                    "art_id": articles_count,
                     "Title": article_data[3],
                     "Date": article_data[1],
                     "Category": article_data[4],
@@ -144,11 +150,10 @@ def scrape_category(category_url, category_name, wd,num_articles):
                 print(f"Article #{articles_count} scraped: {article_data[3]}")
 
     category_name = sanitize_filename(category_url.split("/")[-1])
-    csv_file_path = os.path.join(os.getcwd(), f'{category_name}_data_ar.csv')
-    file_mode = 'a' if os.path.exists(csv_file_path) else 'w'
+    csv_file_path = os.path.join(os.getcwd(),   f'{category_name}_al9anat_ar.csv')
     try:
         with open(csv_file_path, 'w', newline='', encoding='utf-8') as file:
-            fieldnames = ["art_id", "Title", "Date", "Category", "Content", "Link", "Image"]
+            fieldnames = ["Title", "Date", "Category", "Content", "Link", "Image"]
             writer = csv.DictWriter(file, fieldnames=fieldnames)
             writer.writeheader()
             for article in articles_data:
@@ -157,22 +162,7 @@ def scrape_category(category_url, category_name, wd,num_articles):
     except Exception as e:
         print(f"Error writing data to file: {e}")
 
-    print(f"Total articles scraped for {category_name}: {len(articles_data)}")
+    wd.quit()  # Close the WebDriver
 
-    # Check if the file exists before uploading
-<<<<<<< HEAD
-    
-    if os.path.exists(csv_file_path):
-        print(f"File successfully created at {csv_file_path}")
-        return csv_file_path
-        
-=======
-
-    if os.path.exists(csv_file_path):
-        print(f"File successfully created at {csv_file_path}")
-        return csv_file_path
-
->>>>>>> 4353443 (Last Update)
-    else:
-        print(f"Failed to create file for {category_url}")
-        return None
+    print(f"Total articles scraped: {len(articles_data)}")
+    return csv_file_path

@@ -7,6 +7,8 @@ import importlib
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 import google_drive_handle as gdrive
+from dotenv import load_dotenv
+import os
 
 # Load config.json
 with open('config.json') as f:
@@ -59,6 +61,7 @@ def load_file_id_mapping():
 file_id_mapping = load_file_id_mapping()
 
 selected_websites = {}
+selected_languages = {}
 
 for website, details in config.items():
     if st.checkbox(website, key=website):
@@ -68,7 +71,10 @@ for website, details in config.items():
             language = st.selectbox(f'Choose language for {website}', list(languages.keys()), key=f'lang_{website}')
             selected_websites[website] = f"{website}_{language}"  # like: hespress_en
         else:
+            language = next(iter(languages.keys()))
             selected_websites[website] = website  # like: akhbarona
+
+        selected_languages[website] = language
 
         # Category selection
         categories = languages.get(language, {})
@@ -88,10 +94,15 @@ if st.button('Start Scraping'):
         for website, module_name in selected_websites.items():
             scraper_module = importlib.import_module(module_name)
             for category in selected_categories.get(website, []):
-                category_url = config[website]['languages'][language][category]
+                try:
+                    language = selected_languages[website]
+                    category_url = config[website]['languages'][language][category]
+                except KeyError:
+                    st.error(f"KeyError: {category} not found for {language} language in {website}.")
                 if 'category_name' in config[website]:
                     category_name = config[website]['category_name'].get(category, 'default_category_name')
-                file_path = scraper_module.scrape_category(category_url, wd, num_articles)
+                file_path = scraper_module.scrape_category(category_url, num_articles)
+
                 if file_path:
                     if file_path not in file_id_mapping:
                         file_id = gdrive.upload_file_to_drive(drive, file_path)
@@ -101,10 +112,12 @@ if st.button('Start Scraping'):
                     else:
                         file_id = file_id_mapping[file_path]
                         print(f"File already uploaded. Using existing File ID: {file_id}")
+
                     if file_id:
                         download_link = gdrive.get_drive_download_link(drive, file_id)
                         if download_link:
                             #st.markdown(f"[Download {website} - {category} data]({download_link})", unsafe_allow_html=True)
+
                             df = pd.read_csv(file_path)
                             st.write(f"{website} - {category} Data:")
                             st.dataframe(df)

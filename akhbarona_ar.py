@@ -1,6 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+import os
+from google_drive_handle import authenticate_google_drive
+drive = authenticate_google_drive()
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
@@ -61,10 +64,16 @@ def scrape_category(category_url, num_articles):
         print(f"Going to next page: {paginated_url}")
         page_num += 1  # Increment the page number
 
+
+    #csv_file_path = os.path.join(os.getcwd(), f'{category_name}_data_en.csv')
     df = pd.DataFrame(all_articles)
-    csv_file_name = f"{site_name}_{category_name}_articles.csv"  # Dynamic file name based on site and category
-    df.to_csv(csv_file_name, index=False)
-    print(f"Articles saved to {csv_file_name}")
+    csv_file_name = f"{site_name}_{category_name}_articles.csv"
+    csv_file_path = os.path.join(os.getcwd(), csv_file_name)  # Full file path
+    df.to_csv(csv_file_path, index=False)
+    print(f"Articles saved to {csv_file_path}")
+
+    return csv_file_path
+
 
 
 
