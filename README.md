@@ -48,7 +48,3 @@ This project is licensed under the [MIT License](LICENSE).
 ## Acknowledgements
 
 The Moroccan News Aggregator project relies on the contributions of various open-source libraries and tools. Special thanks to the developers and maintainers of Streamlit, Selenium, Google Drive API, and other dependencies used in this project.
-
----
-
-Feel free to explore and customize the project for your needs. If you encounter any issues or have suggestions for improvements, please let us know!
